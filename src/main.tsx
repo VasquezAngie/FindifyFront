@@ -2,12 +2,12 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import AuthProvider from "react-auth-kit";
 import createStore from "react-auth-kit/createStore";
-
+import "./index.css";
 const store = createStore({
-  authType: "cookie", 
+  authType: "cookie",
   authName: "_auth",
-  cookieDomain: window.location.hostname, 
-  cookieSecure: false, 
+  cookieDomain: window.location.hostname,
+  cookieSecure: false,
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
