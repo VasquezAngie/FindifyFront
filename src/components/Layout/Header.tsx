@@ -1,8 +1,16 @@
 import { useState } from "react";
 import LoginModal from "../Modals/LoginModal";
+import RegisterModal from "../Modals/RegisterModal";
 
 const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
+  // Función para cambiar de Login a Registro
+  const switchToRegister = () => {
+    setIsLoginOpen(false); // Cierra el modal de login
+    setIsRegisterOpen(true); // Abre el modal de registro
+  };
 
   return (
     <div className="bg-[#E8F8F7] p-4 flex justify-between items-center max-w-full">
@@ -17,14 +25,32 @@ const Header = () => {
         <h4 className="py-5">Productos</h4>
       </div>
 
-      <button
-        className="bg-[#2c8c8c] text-white font-bold py-2 px-2 rounded"
-        onClick={() => setIsModalOpen(true)}
-      >
-        Iniciar Sesión
-      </button>
+      <div className="flex space-x-2 ml-auto">
+        <button
+          className="bg-[#2c8c8c] text-white font-bold py-2 px-2 rounded"
+          onClick={() => setIsLoginOpen(true)}
+        >
+          Iniciar Sesión
+        </button>
 
-      <LoginModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        <button
+          className="bg-[#2c8c8c] text-white font-bold py-2 px-2 rounded"
+          onClick={() => setIsRegisterOpen(true)}
+        >
+          Registrarse
+        </button>
+      </div>
+
+      <LoginModal
+        isOpen={isLoginOpen}
+        onClose={() => setIsLoginOpen(false)}
+        onSwitchToRegister={switchToRegister} // Prop para cambiar a registro
+      />
+
+      <RegisterModal
+        isOpen={isRegisterOpen}
+        onClose={() => setIsRegisterOpen(false)}
+      />
     </div>
   );
 };
