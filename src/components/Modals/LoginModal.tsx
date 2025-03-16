@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import useAuthService from '../../services/AuthService';
+
 interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -14,12 +16,31 @@ const LoginModal: React.FC<LoginModalProps> = ({
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const { login } = useAuthService();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Username:", username);
-    console.log("Password:", password);
-    console.log("Remember Me:", rememberMe);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error en la autenticación');
+      }
+
+      const data = await response.json();
+      const { token, user } = data.data;
+      login(token, user);
+      console.log('Usuario autenticado con token:', token);
+      onClose();
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+    }
   };
 
   if (!isOpen) return null;
