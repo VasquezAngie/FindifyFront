@@ -2,8 +2,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 
-//import useTopProducts from "../hooks/useTopProducts";
-
 const TopProducts = () => {
   const products = [
     {
@@ -112,18 +110,17 @@ const TopProducts = () => {
         "High-definition drone camera with stabilization and long battery life.",
     },
   ];
+
   return (
-    <div className="bg-[#E8F8F7] py-24 sm:py-32 w-full relative">
+    <div className="w-full relative py-15 bg-[#F5F5F5] dark:bg-[#0A0A0A] text-[#1A1A1A] dark:text-[#E0E0E0]">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-4xl font-semibold tracking-tight text-black sm:text-5xl">
-            Los 10 productos más comprados esta semana
-          </h2>
-        </div>
+        <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+          Los 10 productos <br /> más comprados esta semana
+        </h2>
 
         <div className="relative mt-10">
-          <div className="absolute -left-10 top-1/2 transform -translate-y-1/2 z-10 swiper-button-prev"></div>
-          <div className="absolute -right-10 top-1/2 transform -translate-y-1/2 z-10 swiper-button-next"></div>
+          <div className="absolute -left-20 top-1/2 transform -translate-y-1/2 z-10 swiper-button-prev cursor-pointer before:hidden"></div>
+          <div className="absolute -right-20 top-1/2 transform -translate-y-1/2 z-10 swiper-button-next cursor-pointer before:hidden"></div>
 
           <Swiper
             modules={[Navigation, Pagination]}
@@ -138,42 +135,29 @@ const TopProducts = () => {
               nextEl: ".swiper-button-next",
               prevEl: ".swiper-button-prev",
             }}
-            pagination={{ clickable: true }}
+            pagination={{ el: ".swiper-pagination", clickable: true }}
           >
             {products.map((product) => (
               <SwiperSlide key={product.id}>
-                <article className="flex max-w-xl flex-col items-start justify-between bg-white p-6 rounded-xl shadow">
-                  <div className="flex items-center gap-x-4 text-xs">
-                    <time dateTime={product.date} className="text-gray-500">
-                      {product.date}
-                    </time>
-                    <a
-                      href="#"
-                      className="relative z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-200"
-                    >
-                      {product.category}
-                    </a>
-                  </div>
-
-                  <div className="group relative pt-6">
-                    <div>
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-[200px] h-[200px] bg-gray-50 rounded-lg object-contain"
-                      />
-                    </div>
-                    <h3 className="mt-3 text-lg font-semibold text-gray-900 group-hover:text-gray-600">
-                      {product.name}
-                    </h3>
-                    <p className="mt-5 line-clamp-3 text-sm text-gray-600">
-                      {product.description}
-                    </p>
-                  </div>
+                <article className="flex flex-col items-center p-6 rounded-xl shadow bg-white dark:bg-[#141414] text-[#1A1A1A] dark:text-[#E0E0E0]">
+                  <time className="text-gray-500 dark:text-gray-400">
+                    {product.date}
+                  </time>
+                  <h3 className="mt-3 text-lg font-semibold">{product.name}</h3>
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-[200px] h-[200px] bg-gray-50 rounded-lg object-contain mt-3"
+                  />
+                  <p className="mt-5 text-sm text-center">
+                    {product.description}
+                  </p>
                 </article>
               </SwiperSlide>
             ))}
           </Swiper>
+
+          <div className="swiper-pagination mt-6 flex justify-center"></div>
         </div>
       </div>
     </div>
