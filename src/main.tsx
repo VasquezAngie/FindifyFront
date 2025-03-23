@@ -3,6 +3,8 @@ import App from "./App";
 import AuthProvider from "react-auth-kit";
 import createStore from "react-auth-kit/createStore";
 import "./index.css";
+import { ToastProvider } from "./context/ToastContext";
+
 const store = createStore({
   authType: "cookie",
   authName: "_auth",
@@ -12,6 +14,8 @@ const store = createStore({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <AuthProvider store={store}>
-    <App />
+    <ToastProvider>
+      <App />
+    </ToastProvider>
   </AuthProvider>
 );

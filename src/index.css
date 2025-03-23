@@ -15,3 +15,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 } */
+
+/* Animaciones para Toast */
+@keyframes shrinkWidth {
+  from { width: 100%; }
+  to { width: 0%; }
+}

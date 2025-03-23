@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+
 import useAuthService from "../../services/AuthService";
 
 interface LoginModalProps {
@@ -12,18 +13,10 @@ const LoginModal: React.FC<LoginModalProps> = ({
   onClose,
   onSwitchToRegister,
 }) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const { login } = useAuthService();
-
-  useEffect(() => {
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    setIsDarkMode(prefersDark);
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,49 +49,28 @@ const LoginModal: React.FC<LoginModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div
-      className={`fixed inset-0 bg-opacity-50 flex items-center justify-center z-50 ${
-        isDarkMode ? "bg-[#0A0A0A]" : "bg-[#F5F5F5]"
-      }`}
-    >
-      <div
-        className={`rounded-xl shadow-xl w-96 ${
-          isDarkMode ? "bg-[#141414] text-[#E0E0E0]" : "bg-white text-[#1A1A1A]"
-        }`}
-      >
-        <div
-          className={`p-6 border-b flex items-center ${
-            isDarkMode ? "border-[#141414]" : "border-[#D9D9D9]"
-          }`}
-        >
+    <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-xl shadow-xl w-96">
+        <div className="p-6 border-b flex items-center">
           <h2 className="text-xl font-bold text-center flex-grow">Login</h2>
-          <button
-            className={`text-gray-500 ${
-              isDarkMode ? "hover:text-[#00A3FF]" : "hover:text-[#0056B3]"
-            }`}
-            onClick={onClose}
-          >
+          <button className="text-gray-500" onClick={onClose}>
             &times;
           </button>
         </div>
         <div className="p-6">
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label className="block mb-1">Username</label>
+              <label className="block mb-1">Email</label>
               <input
                 type="text"
-                className={`w-full px-3 py-2 border rounded-xl ${
-                  isDarkMode
-                    ? "bg-[#141414] border-[#141414] text-[#E0E0E0]"
-                    : "bg-white border-[#D9D9D9] text-[#1A1A1A]"
-                }`}
+                className="w-full px-3 py-2 border rounded-xl"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Enter username"
               />
             </div>
             <div className="mb-4">
-              <label className="block mb-1">Password</label>
+              <label className="block mb-1">Contraseña</label>
               <input
                 type="password"
                 className={`w-full px-3 py-2 border rounded-xl ${
@@ -108,7 +80,8 @@ const LoginModal: React.FC<LoginModalProps> = ({
                 }`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter password"
+                placeholder="Ingresa tu contraseña"
+                disabled={isLoading}
               />
             </div>
             <div className="mb-4 flex items-center space-x-2">
@@ -116,28 +89,27 @@ const LoginModal: React.FC<LoginModalProps> = ({
                 type="checkbox"
                 checked={rememberMe}
                 onChange={() => setRememberMe(!rememberMe)}
+                disabled={isLoading}
+                id="rememberMe"
               />
-              <label>Remember me</label>
+              <label htmlFor="rememberMe" className="select-none">
+                Recordarme
+              </label>
             </div>
             <button
               type="submit"
-              className={`w-full py-2 rounded-full ${
-                isDarkMode
-                  ? "bg-[#007BFF] text-white hover:bg-[#00A3FF]"
-                  : "bg-[#007BFF] text-white hover:bg-[#0056B3]"
-              }`}
+              className="w-full bg-[#50ccc3] text-white py-2 rounded-full hover:bg-gray-500"
             >
-              Login
+              {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
             </button>
           </form>
+          {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
           <div className="text-center mt-4">
             <p>
               ¿No tienes una cuenta?{" "}
               <button
                 onClick={onSwitchToRegister}
-                className={`underline ${
-                  isDarkMode ? "text-[#00A3FF]" : "text-[#007BFF]"
-                }`}
+                className="text-[#50ccc3] underline"
               >
                 Regístrate
               </button>
