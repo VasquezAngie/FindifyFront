@@ -1,5 +1,5 @@
 import React from "react";
-import Header2 from "../../components/Layout/Header2";
+import Header from "../../components/Layout/Header2";
 import SearchBar from "../../components/SearchBar";
 import TopProducts from "../../components/TopProducts";
 
@@ -7,7 +7,7 @@ const MainPage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <div className="fixed top-0 left-0 w-full z-50">
-        <Header2 />
+        <Header />
       </div>
       <div className="flex flex-col flex-grow overflow-y-auto pt-[70px] h-[calc(100vh-70px)]">
         <div

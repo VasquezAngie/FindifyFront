@@ -1,10 +1,10 @@
-import Header2 from "../../components/Layout/Header2";
+import Header from "../../components/Layout/Header2";
 import ProductsList from "../../components/Products/ProductsList";
 
 const LandingPageProductos: React.FC = () => {
   return (
     <div className="container mx-auto p-4 bg-white dark:bg-gray-800">
-      <Header2 />
+      <Header />
 
       <div className="flex justify-between items-start mt-8 space-x-8">
         <div className="flex-grow">

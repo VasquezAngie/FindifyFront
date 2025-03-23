@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 const products = [
   {
     id: 1,
@@ -152,10 +150,6 @@ const products = [
 ];
 
 export default function ProductsList() {
-  useEffect(() => {
-    document.documentElement.classList.add("dark");
-  }, []);
-
   return (
     <div className="min-h-screen bg-white dark:bg-gray-800 transition-colors duration-300">
       <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
